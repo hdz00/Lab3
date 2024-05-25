@@ -1,6 +1,6 @@
 {
     "java.project.referencedLibraries": [
-       "C:\\ProgramasNaoNativos\\Programas(x64)\\Lingugem Programação\\Java\\javafx\\javafx-sdk-21.0.2\\lib\\*"
+       "C:/ProgramasNaoNativos/Programas(x64)/Lingugem Programação/Java/javafx/javafx-sdk-21.0.2/lib/*.jar"
 /*        "${workspaceFolder}/lib/*"
  */    ],
     "java.completion.favoriteStaticMembers": [

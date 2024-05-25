@@ -9,6 +9,7 @@
             "projectName": "QRCodeInvoiceProject",
             //"vmArgs": "--module-path \"${workspaceFolder}/lib\" --add-modules javafx.controls,javafx.fxml"
             "vmArgs": "--module-path \"C:/ProgramasNaoNativos/Programas(x64)/Lingugem Programação/Java/javafx/javafx-sdk-21.0.3/lib\" --add-modules javafx.controls,javafx.fxml"
+            
         }
     ]
     
