@@ -1,4 +1,4 @@
-{
+/* {
     "version": "0.2.0",
     "configurations": [
         {
@@ -14,4 +14,17 @@
     ]
     
 
+} */
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "MainApplication",
+            "request": "launch",
+            "mainClass": "service.MainApplication",
+            "projectName": "QRCodeInvoiceProject",
+            "vmArgs": "--module-path \"C:/ProgramasNaoNativos/Programas(x64)/Lingugem Programação/Java/javafx/javafx-sdk-21.0.3/lib\" --add-modules javafx.controls,javafx.fxml -cp \"bin;lib/core-3.5.3.jar;lib/zxing-javase-1.7.jar\""
+        }
+    ]
 }
