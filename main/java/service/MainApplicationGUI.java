@@ -8,8 +8,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.awt.Desktop;
 
 public class MainApplicationGUI {
+    private static final String CSV_FILE_PATH = "csv/fatura_export.csv"; // Ensure this path matches the one in
+                                                                         // FaturaDAO
+
     public static void main(String[] args) {
         // Create a new frame
         JFrame frame = new JFrame("Hello World Swing");
@@ -31,6 +35,10 @@ public class MainApplicationGUI {
         // Create a text area to display aggregated data
         JTextArea aggregatedDataTextArea = new JTextArea();
         aggregatedDataTextArea.setEditable(false);
+
+        // Create a button to open the CSV file
+        JButton openCSVButton = new JButton("Open CSV File");
+        openCSVButton.setVisible(false); // Initially hidden
 
         // Create an instance of FaturaDAO
         FaturaDAO faturaDAO = new FaturaDAO();
@@ -67,14 +75,19 @@ public class MainApplicationGUI {
                             int idCategoria = Integer.parseInt(qrCodeData[0]);
                             int valor = Integer.parseInt(qrCodeData[1]);
                             int nif = Integer.parseInt(qrCodeData[2]);
-                            String ficheiro = file.getName();
+
+                            // Get the image file name
+                            String imageFileName = file.getName();
 
                             // Call FaturaDAO to insert the data
-                            faturaDAO.insertFatura(idCategoria, valor, nif, ficheiro);
+                            faturaDAO.insertFatura(idCategoria, valor, nif, imageFileName);
 
                             // Update DataDisplay to get new aggregated data
                             String aggregatedData = dataDisplay.getAggregatedData();
                             aggregatedDataTextArea.setText(aggregatedData);
+
+                            // Make the CSV button visible
+                            openCSVButton.setVisible(true);
 
                             JOptionPane.showMessageDialog(frame, "Fatura inserted successfully!", "Success",
                                     JOptionPane.INFORMATION_MESSAGE);
@@ -95,6 +108,18 @@ public class MainApplicationGUI {
             }
         });
 
+        // Set up the CSV button action to open the CSV file
+        openCSVButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Desktop.getDesktop().open(new File(CSV_FILE_PATH));
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
         // Create a panel to hold the components
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
@@ -103,6 +128,7 @@ public class MainApplicationGUI {
         panel.add(imageLabel, BorderLayout.CENTER);
         panel.add(qrCodeDataLabel, BorderLayout.SOUTH);
         panel.add(new JScrollPane(aggregatedDataTextArea), BorderLayout.EAST);
+        panel.add(openCSVButton, BorderLayout.AFTER_LAST_LINE);
 
         // Add the panel to the frame
         frame.add(panel);
