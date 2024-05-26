@@ -67,9 +67,10 @@ public class MainApplicationGUI {
                             int idCategoria = Integer.parseInt(qrCodeData[0]);
                             int valor = Integer.parseInt(qrCodeData[1]);
                             int nif = Integer.parseInt(qrCodeData[2]);
+                            String ficheiro = file.getName();
 
                             // Call FaturaDAO to insert the data
-                            faturaDAO.insertFatura(idCategoria, valor, nif);
+                            faturaDAO.insertFatura(idCategoria, valor, nif, ficheiro);
 
                             // Update DataDisplay to get new aggregated data
                             String aggregatedData = dataDisplay.getAggregatedData();

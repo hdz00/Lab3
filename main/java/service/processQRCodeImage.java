@@ -12,10 +12,10 @@ public class processQRCodeImage {
             int idCategoria = Integer.parseInt(extractedData[0]);
             int valor = Integer.parseInt(extractedData[1]);
             int nif = Integer.parseInt(extractedData[2]);
-
+            String ficheiro = qrCodeImage.getName();
             // Insert data into fatura table
             FaturaDAO faturaDAO = new FaturaDAO();
-            faturaDAO.insertFatura(idCategoria, valor, nif);
+            faturaDAO.insertFatura(idCategoria, valor, nif, ficheiro);
 
             // Display aggregated data
             DataDisplay dataDisplay = new DataDisplay();
