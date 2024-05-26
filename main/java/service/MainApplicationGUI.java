@@ -14,7 +14,7 @@ public class MainApplicationGUI {
         // Create a new frame
         JFrame frame = new JFrame("Hello World Swing");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500, 400);
+        frame.setSize(800, 600);
 
         // Create a label to display the message
         JLabel messageLabel = new JLabel("Hello, World!", SwingConstants.CENTER);
@@ -28,8 +28,17 @@ public class MainApplicationGUI {
         // Create a label to display QR Code data
         JLabel qrCodeDataLabel = new JLabel("", SwingConstants.CENTER);
 
+        // Create a text area to display aggregated data
+        JTextArea aggregatedDataTextArea = new JTextArea();
+        aggregatedDataTextArea.setEditable(false);
+
         // Create an instance of FaturaDAO
         FaturaDAO faturaDAO = new FaturaDAO();
+        // Create an instance of DataDisplay
+        DataDisplay dataDisplay = new DataDisplay();
+
+        // Display initial aggregated data when GUI opens
+        aggregatedDataTextArea.setText(dataDisplay.getAggregatedData());
 
         // Set up the file chooser button action
         openButton.addActionListener(new ActionListener() {
@@ -62,6 +71,10 @@ public class MainApplicationGUI {
                             // Call FaturaDAO to insert the data
                             faturaDAO.insertFatura(idCategoria, valor, nif);
 
+                            // Update DataDisplay to get new aggregated data
+                            String aggregatedData = dataDisplay.getAggregatedData();
+                            aggregatedDataTextArea.setText(aggregatedData);
+
                             JOptionPane.showMessageDialog(frame, "Fatura inserted successfully!", "Success",
                                     JOptionPane.INFORMATION_MESSAGE);
                         } catch (IOException ioException) {
@@ -85,9 +98,10 @@ public class MainApplicationGUI {
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
         panel.add(messageLabel, BorderLayout.NORTH);
-        panel.add(openButton, BorderLayout.CENTER);
-        panel.add(imageLabel, BorderLayout.SOUTH);
-        panel.add(qrCodeDataLabel, BorderLayout.AFTER_LAST_LINE);
+        panel.add(openButton, BorderLayout.WEST);
+        panel.add(imageLabel, BorderLayout.CENTER);
+        panel.add(qrCodeDataLabel, BorderLayout.SOUTH);
+        panel.add(new JScrollPane(aggregatedDataTextArea), BorderLayout.EAST);
 
         // Add the panel to the frame
         frame.add(panel);
